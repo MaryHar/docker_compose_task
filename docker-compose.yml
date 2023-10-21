@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    build:
+      context: . # Build from the Dockerfile in the current directory
+    container_name: nodejs-app
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: examplepassword
+      MYSQL_DATABASE: myappdb
+
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+      MYSQL_DATABASE: myappdb
+
+   
